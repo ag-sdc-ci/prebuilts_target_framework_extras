@@ -1,0 +1,48 @@
+// Auto-generated Blueprint for system/extras (framework extractive)
+// Staged from Extractive APEX package: org.blisslabs.ag.ext.extras
+
+package {
+    default_applicable_licenses: ["system_extras_license"],
+}
+
+license {
+    name: "system_extras_license",
+    visibility: [":__subpackages__"],
+    license_kinds: ["SPDX-license-identifier-Apache-2.0"],
+    license_text: ["NOTICE"],
+}
+
+filegroup {
+    name: "profcollectd_aidl",
+    srcs: [
+        "profcollectd/binder/com/android/server/profcollect/IProfCollectd.aidl",
+        "profcollectd/binder/com/android/server/profcollect/IProviderStatusCallback.aidl",
+    ],
+    path: "profcollectd/binder",
+}
+
+ndk_headers {
+    name: "ndk_jni.h",
+    from: "module_ndk_libs/libnativehelper/include_jni",
+    to: "",
+    srcs: ["module_ndk_libs/libnativehelper/include_jni/jni.h"],
+    license: "NOTICE",
+}
+
+ndk_headers {
+    name: "libnativehelper_ndk_headers",
+    from: "module_ndk_libs/libnativehelper/include",
+    to: "",
+    srcs: ["module_ndk_libs/libnativehelper/include/android/*.h"],
+    license: "NOTICE",
+}
+
+ndk_library {
+    name: "libnativehelper",
+    symbol_file: "module_ndk_libs/libnativehelper/libnativehelper.map.txt",
+    first_version: "S",
+    export_header_libs: [
+        "libnativehelper_ndk_headers",
+        "ndk_jni.h",
+    ],
+}

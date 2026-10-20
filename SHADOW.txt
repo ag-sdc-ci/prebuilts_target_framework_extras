@@ -1,0 +1,5 @@
+upstream_repo: system/extras
+framework_extractive: true
+package: org.blisslabs.ag.ext.extras.framework
+source: https://github.com/LineageOS/android_system_extras
+build_type: extractive_apex
