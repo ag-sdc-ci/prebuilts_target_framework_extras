@@ -12,13 +12,13 @@ license {
     license_text: ["NOTICE"],
 }
 
+// Pre-generated Java from AIDL — zero AIDL compilation at platform build time
 filegroup {
     name: "profcollectd_aidl",
     srcs: [
-        "profcollectd/binder/com/android/server/profcollect/IProfCollectd.aidl",
-        "profcollectd/binder/com/android/server/profcollect/IProviderStatusCallback.aidl",
+        "aidl-gen/profcollectd/**/*.java",
     ],
-    path: "profcollectd/binder",
+    path: "aidl-gen/profcollectd",
 }
 
 ndk_headers {
