@@ -20,8 +20,9 @@ import com.android.server.profcollect.IProviderStatusCallback;
 
 /** {@hide} */
 interface IProfCollectd {
-    void trace_system(@utf8InCpp String tag);
-    void trace_process(@utf8InCpp String tag, @utf8InCpp String processes, float duration);
+    void schedule();
+    void terminate();
+    void trace_once(@utf8InCpp String tag);
     void process();
     /** -1 if there is no usageSetting */
     @utf8InCpp String report(int usageSetting);

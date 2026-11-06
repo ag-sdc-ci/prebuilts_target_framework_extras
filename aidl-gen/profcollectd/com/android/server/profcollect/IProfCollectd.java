@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Using: aidl --lang=java -o /home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/aidl-gen/profcollectd -I /home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/profcollectd/binder /home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/profcollectd/binder/com/android/server/profcollect/IProfCollectd.aidl
+ * Using: aidl --lang=java -I/home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/profcollectd/binder -o /home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/aidl-gen/profcollectd /home/shadichy/Documents/bliss/los-21/prebuilts/target/framework/system/extras/profcollectd/binder/com/android/server/profcollect/IProfCollectd.aidl
  *
  * DO NOT CHECK THIS FILE INTO A CODE TREE (e.g. git, etc..).
  * ALWAYS GENERATE THIS FILE FROM UPDATED AIDL COMPILER
@@ -13,10 +13,13 @@ public interface IProfCollectd extends android.os.IInterface
   /** Default implementation for IProfCollectd. */
   public static class Default implements com.android.server.profcollect.IProfCollectd
   {
-    @Override public void trace_system(java.lang.String tag) throws android.os.RemoteException
+    @Override public void schedule() throws android.os.RemoteException
     {
     }
-    @Override public void trace_process(java.lang.String tag, java.lang.String processes, float duration) throws android.os.RemoteException
+    @Override public void terminate() throws android.os.RemoteException
+    {
+    }
+    @Override public void trace_once(java.lang.String tag) throws android.os.RemoteException
     {
     }
     @Override public void process() throws android.os.RemoteException
@@ -74,23 +77,23 @@ public interface IProfCollectd extends android.os.IInterface
       }
       switch (code)
       {
-        case TRANSACTION_trace_system:
+        case TRANSACTION_schedule:
         {
-          java.lang.String _arg0;
-          _arg0 = data.readString();
-          this.trace_system(_arg0);
+          this.schedule();
           reply.writeNoException();
           break;
         }
-        case TRANSACTION_trace_process:
+        case TRANSACTION_terminate:
+        {
+          this.terminate();
+          reply.writeNoException();
+          break;
+        }
+        case TRANSACTION_trace_once:
         {
           java.lang.String _arg0;
           _arg0 = data.readString();
-          java.lang.String _arg1;
-          _arg1 = data.readString();
-          float _arg2;
-          _arg2 = data.readFloat();
-          this.trace_process(_arg0, _arg1, _arg2);
+          this.trace_once(_arg0);
           reply.writeNoException();
           break;
         }
@@ -146,14 +149,13 @@ public interface IProfCollectd extends android.os.IInterface
       {
         return DESCRIPTOR;
       }
-      @Override public void trace_system(java.lang.String tag) throws android.os.RemoteException
+      @Override public void schedule() throws android.os.RemoteException
       {
         android.os.Parcel _data = android.os.Parcel.obtain();
         android.os.Parcel _reply = android.os.Parcel.obtain();
         try {
           _data.writeInterfaceToken(DESCRIPTOR);
-          _data.writeString(tag);
-          boolean _status = mRemote.transact(Stub.TRANSACTION_trace_system, _data, _reply, 0);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_schedule, _data, _reply, 0);
           _reply.readException();
         }
         finally {
@@ -161,16 +163,28 @@ public interface IProfCollectd extends android.os.IInterface
           _data.recycle();
         }
       }
-      @Override public void trace_process(java.lang.String tag, java.lang.String processes, float duration) throws android.os.RemoteException
+      @Override public void terminate() throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_terminate, _data, _reply, 0);
+          _reply.readException();
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+      }
+      @Override public void trace_once(java.lang.String tag) throws android.os.RemoteException
       {
         android.os.Parcel _data = android.os.Parcel.obtain();
         android.os.Parcel _reply = android.os.Parcel.obtain();
         try {
           _data.writeInterfaceToken(DESCRIPTOR);
           _data.writeString(tag);
-          _data.writeString(processes);
-          _data.writeFloat(duration);
-          boolean _status = mRemote.transact(Stub.TRANSACTION_trace_process, _data, _reply, 0);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_trace_once, _data, _reply, 0);
           _reply.readException();
         }
         finally {
@@ -244,17 +258,19 @@ public interface IProfCollectd extends android.os.IInterface
         }
       }
     }
-    static final int TRANSACTION_trace_system = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
-    static final int TRANSACTION_trace_process = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
-    static final int TRANSACTION_process = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
-    static final int TRANSACTION_report = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
-    static final int TRANSACTION_get_supported_provider = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
-    static final int TRANSACTION_registerProviderStatusCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 5);
+    static final int TRANSACTION_schedule = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+    static final int TRANSACTION_terminate = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+    static final int TRANSACTION_trace_once = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+    static final int TRANSACTION_process = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+    static final int TRANSACTION_report = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
+    static final int TRANSACTION_get_supported_provider = (android.os.IBinder.FIRST_CALL_TRANSACTION + 5);
+    static final int TRANSACTION_registerProviderStatusCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 6);
   }
   /** @hide */
   public static final java.lang.String DESCRIPTOR = "com.android.server.profcollect.IProfCollectd";
-  public void trace_system(java.lang.String tag) throws android.os.RemoteException;
-  public void trace_process(java.lang.String tag, java.lang.String processes, float duration) throws android.os.RemoteException;
+  public void schedule() throws android.os.RemoteException;
+  public void terminate() throws android.os.RemoteException;
+  public void trace_once(java.lang.String tag) throws android.os.RemoteException;
   public void process() throws android.os.RemoteException;
   /** -1 if there is no usageSetting */
   public java.lang.String report(int usageSetting) throws android.os.RemoteException;
